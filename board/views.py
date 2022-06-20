@@ -17,9 +17,9 @@ def createBoardGet(request):
         context = {'postform': postform}
         return render(request, "board/getdata.html", context)
     elif request.method == "POST":
-        postForm = PostForm(request.POST)  # FORM에게 전달해주면 알아서 객체에 저장해줌
+        postForm = PostForm(request.POST)# form data를 form instance에 저장
         if postForm.is_valid():  # 유효성 검증
-            post = postForm.save(commit=False)  # 원래 save하면 db에 저장되는데, 이를 false로 하면 저장을 안하고, model을 반환한다. 중복데이터나 오류를 미리 알아낼 수 있게 해줌
+            post = postForm.save(commit=False)# 원래 save하면 db에 저장되는데, 이를 false로 하면 저장을 안하고,DB 객체를 반환한다. 중복데이터나 오류를 미리 알아낼 수 있게 해줌
             post.writer = request.user #작성자 설정, 이 설정을 안하면 writer를 form에서 exclude했기에 유효성 검사는 통과하지만 null값이 들어간다
             post.save()
         return redirect('readGet/'+str(post.id))
