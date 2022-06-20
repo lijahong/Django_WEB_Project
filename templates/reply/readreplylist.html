@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-{% for data in datas %}
-{{data.id}}
-<a href = "readGet/{{ data.id }}">{{ data.title }}</a>  <br/>
+{% for reply in replylist %}
+{{reply.id}} </dr>
+<a href = "readreply/{{ reply.id }}">{{ reply.contents }}</a>  <br/>
 {% endfor %}
 </body>
 </html>
-

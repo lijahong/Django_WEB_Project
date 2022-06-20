@@ -17,14 +17,26 @@ from django.contrib import admin
 from django.urls import path
 import board.views
 import product.views
+import reply.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', board.views.mainPage), #메인페이지로 url이 입력되지 않은 상태
+
     path('product/create', product.views.createFruitGet),
     path('product/createPost', product.views.createFruitPost),
     path('product/getlist', product.views.readFruitGet),
+
     path('board/getdata', board.views.createBoardGet),
-    path('board/postdata', board.views.createBoardPost),
     path('board/readdata', board.views.createReadBoard),
+    path('board/readGet/<int:bid>', board.views.readGet),
+    path('board/deleteget/<int:bid>',board.views.deleteget),
+    path('board/updateget/<int:bid>',board.views.updateget),
+
+    path('reply/createreply', reply.views.createreply),
+    path('reply/readreplylist', reply.views.readreplylist),
+    path('reply/readreply/<int:bid>', reply.views.readreply),
+    path('reply/deletereply/<int:bid>', reply.views.deletereply),
+    path('reply/updatereply/<int:bid>', reply.views.updatereply),
+
 ]

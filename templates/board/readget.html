@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<form action="readdata" >
-     {% csrf_token %}
-    <button>게시판으로 가기</button>
-</form>
-
+{% for data in post %}
+{{data.id}}
+{{ data.contents }}
+{% endfor %}
 </body>
 </html>
