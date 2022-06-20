@@ -20,7 +20,8 @@ def createBoardPost(request):
     return render(request, "board/postresult.html")
 
 def createReadBoard(request):
-    board_get_data = Post.objects.all()
+    ids = request.Get.get('id',None) #get방식으로 주소창에 원하는 id를 입력받음
+    board_get_data = Post.objects.filter(id=ids)
     context = {
        'datas': board_get_data
     }
