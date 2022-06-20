@@ -42,6 +42,7 @@ urlpatterns = [
     #회원가입 실습
     path('user/signup', user.views.signup),
     path('user/login', user.views.login),
-    path('user/logout', user.views.logout)
+    path('user/logout', user.views.logout),
+    path('user/mainpage',user.views.mainpage)
 
 ]

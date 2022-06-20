@@ -14,6 +14,9 @@
 {{reply.writer}}님의 댓글입니다<br/>
 {% endfor %}
 <a href = '/reply/createreply'>댓글 작성</a>
-<a href = "/user/logout">로그아웃</a>
+
+{% if request.user.is_authenticated %}
+<a href = "/user/logout">로그아웃</a> </br></br>
+{% endif %}
 </body>
 </html>

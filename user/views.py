@@ -27,3 +27,5 @@ def logout(request):
     auth_logout(request)
     return redirect("/board/readdata")
 
+def mainpage(request):
+    return render(request,'user/mainpage.html')
