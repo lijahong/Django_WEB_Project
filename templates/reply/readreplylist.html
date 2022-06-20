@@ -5,9 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+{% if request.user.is_authenticated %}
+{{ request.user }}님은 로그인 상태 입니다 </br></br>
+{% endif %}
 {% for reply in replylist %}
 {{reply.id}} </dr>
-<a href = "readreply/{{ reply.id }}">{{ reply.contents }}</a>  <br/>
+<a href = "readreply/{{ reply.id }}">{{ reply.contents }}</a>
+{{reply.writer}}님의 댓글입니다<br/>
 {% endfor %}
+<a href = '/reply/createreply'>댓글 작성</a>
+<a href = "/user/logout">로그아웃</a>
 </body>
 </html>

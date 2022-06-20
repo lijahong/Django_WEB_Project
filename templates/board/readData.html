@@ -7,14 +7,15 @@
 <body>
 
 {% if request.user.is_authenticated %}
-로그인 상태 입니다 </br>
+{{ request.user }}님은 로그인 상태 입니다 </br></br>
 {% endif %}
 
 {% for data in datas %}
 {{data.id}}
-<a href = "readGet/{{ data.id }}">{{ data.title }}</a>  <br/>
+<a href = "readGet/{{ data.id }}">{{ data.title }}</a>
+{{ data.writer }}님의 포스트 <br/>
 {% endfor %}
-
+<a href = "/board/getdata">글 작성</a>
 </body>
 </html>
 

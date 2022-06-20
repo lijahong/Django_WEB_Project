@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, logout as auth_logout
 
 def signup(request): #회원가입
     if request.method == "GET":
@@ -22,4 +22,8 @@ def login(request): #로그인
         if loginForm.is_valid():
             auth_login(request, loginForm.get_user()) #loginform에서 user만 가져옴, 이 코드 안에는 사용자 이름을 가지고 그 이름에 해당하는 passwor를 DB로 부터 가져와 비교하는 기능이 구현되어있다. 따라서 FORM에서 유저정보를 불러와 전달해줘야한다
             return redirect("/board/readdata")
+
+def logout(request):
+    auth_logout(request)
+    return redirect("/board/readdata")
 

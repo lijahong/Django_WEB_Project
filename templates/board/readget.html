@@ -5,9 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-{% for data in post %}
-{{data.id}}
-{{ data.contents }}
-{% endfor %}
+
+
+{% if post %}
+
+    {{ post.id }}
+    {{ post.title}} <br/>
+    {% if post.writer == request.user %}
+        <a href = "/board/updateget/{{post.id}}">수정하기</a>
+        <a href = "/board/deleteget/{{post.id}}">삭제하기</a>
+    {% endif %}
+    {% if post.writer != request.user %}
+        <a href = "/board/readdata">목록으로</a>
+    {% endif %}
+
+{% endif %}
+
+
 </body>
 </html>

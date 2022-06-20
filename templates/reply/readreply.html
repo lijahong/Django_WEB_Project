@@ -8,6 +8,14 @@
 {% for reply in reply %}
 {{reply.id}} </dr>
 {{reply.contents}} </dr>
+{% if reply.writer == request.user %}
+<a href = '/reply/deletereply/{{reply.id}}'>삭제하기</a>
+<a href = '/reply/updatereply/{{reply.id}}'>수정하기</a>
+<a href = '/reply/readreplylist'>목록으로</a>
+{% endif %}
+{% if reply.writer != request.user %}
+<a href = '/reply/readreplylist'>목록으로</a>
+{% endif %}
 {% endfor %}
 </body>
 </html>
