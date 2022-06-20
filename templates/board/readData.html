@@ -5,10 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+
+{% if request.user.is_authenticated %}
+로그인 상태 입니다 </br>
+{% endif %}
+
 {% for data in datas %}
 {{data.id}}
 <a href = "readGet/{{ data.id }}">{{ data.title }}</a>  <br/>
 {% endfor %}
+
 </body>
 </html>
 

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from reply.models import Reply
 from reply.form import Replyform
@@ -19,7 +20,7 @@ def readreplylist(request):
     return render(request,'reply/readreplylist.html',{ 'replylist':replys})
 
 def readreply(request, bid):
-    reply = Reply.objects.filter(id=bid)
+    reply = Reply.objects.filter(Q(id=bid))
     return render(request,'reply/readreply.html',{ 'reply':reply})
 
 def deletereply(request, bid):
@@ -33,7 +34,7 @@ def updatereply(request, bid):
         replyform = Replyform(instance=reply)
         return render(request, "reply/createreply.html", { 'replyform': replyform})
     elif request.method == "POST":
-        replyform = Replyform(request.POST, instance = reply)
+        replyform = Replyform(request.POST, instance=reply)
         if replyform.is_valid():
             reply = replyform.save(commit=False)
             reply.save()

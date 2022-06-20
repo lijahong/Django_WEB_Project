@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'board',
     'product',
-    'reply'
+    'reply',
+    'user'
 
 ]
 #보안

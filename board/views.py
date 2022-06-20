@@ -47,7 +47,7 @@ def updateget(request, bid):
         context = {'postform': postform}
         return render(request, "board/getdata.html", context)
     elif request.method == "POST":
-        postForm = PostForm(request.POST, instance=Post)
+        postForm = PostForm(request.POST, instance=post)
         if postForm.is_valid():
             post = postForm.save(commit=False)
             post.save()
