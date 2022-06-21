@@ -22,19 +22,20 @@ import user.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', user.views.login), #메인페이지로 url이 입력되지 않은 상태
+    path('main', user.views.mainpage), #메인페이지로 url이 입력되지 않은 상태
+    path('ex', user.views.mainindex),
     #DB연동 실습
     path('product/create', product.views.createFruitGet),
     path('product/createPost', product.views.createFruitPost),
     path('product/getlist', product.views.readFruitGet),
     #게시판 실습
     path('board/getdata', board.views.createBoardGet),
-    path('board/readdata', board.views.createReadBoard),
-    path('board/readGet/<int:bid>', board.views.readGet),
+    path('board/readlist', board.views.readlist),
+    path('board/readdata/<int:bid>', board.views.readdata),
     path('board/deleteget/<int:bid>',board.views.deleteget),
     path('board/updateget/<int:bid>',board.views.updateget),
     #댓글 실습
-    path('reply/createreply', reply.views.createreply),
+    path('reply/createreply/<int:bid>', reply.views.createreply),
     path('reply/readreplylist', reply.views.readreplylist),
     path('reply/readreply/<int:bid>', reply.views.readreply),
     path('reply/deletereply/<int:bid>', reply.views.deletereply),

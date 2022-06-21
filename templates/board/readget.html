@@ -18,15 +18,17 @@
     {% if post.writer != request.user %}
         <a href = "/board/readdata">목록으로</a>
     {% endif %}
-
-<form method ="post">
+<br/>
+<form action = "/reply/createreply/{{ post.id }}" method ="post">
 {% csrf_token %}
  {{ replyform }}
     <button>save</button>
     </form>
 
+{% for reply in post.reply_set.all %}
+    {{ reply.contents }} <br/>
+{% endfor %}
+
 {% endif %}
-
-
 </body>
 </html>
