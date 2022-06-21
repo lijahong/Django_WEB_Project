@@ -4,17 +4,17 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from board.form import PostForm
 from board.models import Post
-from reply.models import Reply
+from reply.form import Replyform
 
-
+"""
 def mainPage(request):
     return render(request, 'board/index.html')
-
+"""
 @login_required(login_url = '/user/login')
 def createBoardGet(request):
     if request.method == "GET":
         postform = PostForm()
-        context = {'postform': postform}
+        context = {'postform': postform }
         return render(request, "board/getdata.html", context)
     elif request.method == "POST":
         postForm = PostForm(request.POST)# form data를 form instance에 저장
@@ -34,8 +34,8 @@ def createReadBoard(request): #전체 리스트
 
 def readGet(request, bid): #단일 게시물
     post = Post.objects.get(id=bid)
-    print(post)
-    context = {'post': post}
+    replyform = Replyform()
+    context = {'post': post, 'replyform':replyform}
     return render(request, 'board/readget.html', context)
 
 @login_required(login_url = '/user/login')

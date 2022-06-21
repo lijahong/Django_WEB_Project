@@ -22,7 +22,7 @@ import user.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board.views.mainPage), #메인페이지로 url이 입력되지 않은 상태
+    path('', user.views.login), #메인페이지로 url이 입력되지 않은 상태
     #DB연동 실습
     path('product/create', product.views.createFruitGet),
     path('product/createPost', product.views.createFruitPost),
@@ -43,6 +43,6 @@ urlpatterns = [
     path('user/signup', user.views.signup),
     path('user/login', user.views.login),
     path('user/logout', user.views.logout),
-    path('user/mainpage',user.views.mainpage)
+
 
 ]

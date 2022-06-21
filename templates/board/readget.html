@@ -19,6 +19,12 @@
         <a href = "/board/readdata">목록으로</a>
     {% endif %}
 
+<form method ="post">
+{% csrf_token %}
+ {{ replyform }}
+    <button>save</button>
+    </form>
+
 {% endif %}
 
 
