@@ -43,37 +43,45 @@
                             </li>
                         </ul>
                         <img class="img-fluid d-block mx-auto" src="{%static 'imgfile/django.png' %}" alt="..." />
-                        <p>{{ post.contents }}</p>
+                        <p>{{ post.contents | safe }}</p>
                         <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/readlist'" type="button">
                             <i class="fas fa-xmark me-1"></i>
                             글 닫기
                         </button>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        {% if request.user == post.writer %}
+                        <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/updateget/{{post.id}}'" type="button">
+                            글 수정
+                        </button>
+                        <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/deleteget/{{post.id}}'" type="button">
+                            글 삭제
+                        </button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+            <hr/>
+            {% block contents_reply %}
+
+            {% endblock %}
+
+            {% for reply in post.reply_set.all %}
+            <hr/>
+            <div class="portfolio-caption">
+                <div class="portfolio-caption-heading">댓글 : {{ reply.contents }}</div>
+                <hr/>
+                <div class="portfolio-caption-subheading text-muted">작성자 : {{reply.writer}}</div>
+                <div class="portfolio-caption-subheading text-muted">작성날짜 : {{reply.create_date}}</div>
+            </div>
+            <hr/>
+
+            {% endfor %}
+
         </div>
     </section>
 
-     <section class="page-section" id="contact">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">댓글</h2>
-                </div>
-                <form action = "/reply/createreply/{{post.id}}" method="post">
-                    {% csrf_token %}
-                    <div class="row align-items-stretch mb-5">
-                        <div class="text-center">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <textarea name ="contents" id="message" placeholder="댓글 입력 *"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="text-center">
-                        <button class="btn btn-primary btn-xl text-uppercase" >댓글 저장</button>
-                    </div>
-                </form>
-            </div>
-     </section>
+
+
 
 
     {% endif %}

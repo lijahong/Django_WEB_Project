@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form method ="post">
-{% csrf_token %}
- {{ replyform }}
-    <button>save</button>
-    </form>
+{% extends 'board/readdata.html' %}
+{% load static %}
+{% block contents_reply %}
 
+    <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">댓글</h2>
+                </div>
+                <form action = "/reply/createreply/{{post.id}}" method="post">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="text-center">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <textarea name ="contents" id="message" placeholder="댓글 입력 *"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" >댓글 저장</button>
+                    </div>
+                </form>
+            </div>
+     </section>
 
-</body>
-</html>
+{% endblock %}

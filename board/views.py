@@ -36,7 +36,8 @@ def readdata(request, bid): #단일 게시물
     #post = Post.objects.get(id=bid)
     replyform = Replyform()
     context = {'post': post, 'replyform':replyform}
-    return render(request, 'board/readdata.html', context)
+
+    return render(request, 'reply/createreply.html', context)
 
 @login_required(login_url = '/user/login')
 def deleteget(request, bid):
@@ -67,6 +68,11 @@ def updateget(request, bid):
 @login_required(login_url = '/user/login')
 def like(request,bid):
     post = Post.objects.get(id=bid)
-    post.like.add(request.user) #like에는 게시글 정보와 user 정보가 둘 다 필요하므로 user를 넣어준다
-    return JsonResponse({'message':'ok'})
+    user = request.user
+    if post.like.filter(id=request.user.id).exists():
+        post.like.remove(user)
+        return JsonResponse({'message': 'delete', 'like_cnt':post.like.count()})
+    else:
+        post.like.add(user) #like에는 게시글 정보와 user 정보가 둘 다 필요하므로 user를 넣어준다
+        return JsonResponse({'message':'ok', 'like_cnt':post.like.count()})
 

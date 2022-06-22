@@ -2,6 +2,7 @@
 {% load static %}
 {% block contents %}
     <body id="page-top">
+
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -25,6 +26,7 @@
                 </div>
             </div>
         </nav>
+
         <header class="masthead">
             <div class="container">
                 <div class="text-center">
@@ -60,18 +62,32 @@
                                 <div class="portfolio-caption-heading"> {{ data.title }}</div>
                                 <div class="portfolio-caption-subheading text-muted">{{data.create_date}} {{ data.writer }}님의 글</div>
 
-                                <div class="portfolio-caption-heading" onclick="sendRequest({{data.id}})"> ♥ </div>
+                                <div class="portfolio-caption-heading" onclick="sendRequest({{data.id}}, this)">
+                                    {% if request.user in data.like.all %}
+                                        ♥ {{ data.like.count }}
+                                    {% else %}
+                                        ♡ {{ data.like.count }}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
 
                     </div>
                     {% endfor %}
                     <script>
-                        function sendRequest(bid) {
+                        function sendRequest(bid, event) {
                             var httpRequest = new XMLHttpRequest();
                             httpRequest.onreadystatechange = function() {
                                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200 ) {
                                     console.log(httpRequest.responseText);
+
+                                    var json_data = JSON.parse(httpRequest.responseText)
+                                    if(json_data['message']=='ok'){
+                                        event.innerText = "♥" + json_data['like_cnt'] ;
+                                    }
+                                    else {
+                                        event.innerText = "♡" + json_data['like_cnt'] ;
+                                    }
                                 }
                             };
                             httpRequest.open("GET","/like/"+bid, true);
