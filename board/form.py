@@ -7,3 +7,4 @@ class PostForm(forms.ModelForm):
         fields = ('title','contents') #어떤 것을 입력받을지
         exclude = ('writer',) #form에서 writer를 제외시킨다. 즉, 입력받지 않는다
 
+

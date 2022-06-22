@@ -11,9 +11,7 @@ from reply.form import Replyform
 @login_required(login_url = '/user/login')
 def createBoardGet(request):
     if request.method == "GET":
-        postform = PostForm()
-        context = {'postform': postform }
-        return render(request, "board/getdata.html", context)
+        return render(request, "board/getdata.html")
     elif request.method == "POST":
         postForm = PostForm(request.POST)# form data를 form instance에 저장
         if postForm.is_valid():  # 유효성 검증
@@ -55,9 +53,8 @@ def updateget(request, bid):
         return redirect('/board/readlist')
     else:
         if request.method == "GET":
-            postform = PostForm(instance=post) #조회한 post의 글을 가져와서 form에 넣어줌
-            context = {'postform': postform}
-            return render(request, "board/getdata.html", context)
+            context = {'post':post}
+            return render(request, "board/updatedata.html", context)
         elif request.method == "POST":
             postForm = PostForm(request.POST, instance=post)
             if postForm.is_valid():

@@ -42,7 +42,8 @@
                                 {{post.create_date}}
                             </li>
                         </ul>
-                        <img class="img-fluid d-block mx-auto" src="{%static 'imgfile/django.png' %}" alt="..." />
+                        <hr/>
+                        <!--<img class="img-fluid d-block mx-auto" src="{%static 'imgfile/django.png' %}" alt="..." />-->
                         <p>{{ post.contents | safe }}</p>
                         <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/readlist'" type="button">
                             <i class="fas fa-xmark me-1"></i>

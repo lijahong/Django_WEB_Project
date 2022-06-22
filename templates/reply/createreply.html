@@ -2,25 +2,19 @@
 {% load static %}
 {% block contents_reply %}
 
-    <section class="page-section" id="contact">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">댓글</h2>
+
+        <form action="/reply/createreply/{{ post.id }}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-10 form-group">
+                    <input name="contents" placeholder="댓글 내용을 입력해주세요."
+                           class="form-control" type="text">
                 </div>
-                <form action = "/reply/createreply/{{post.id}}" method="post">
-                    {% csrf_token %}
-                    <div class="row align-items-stretch mb-5">
-                        <div class="text-center">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <textarea name ="contents" id="message" placeholder="댓글 입력 *"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="text-center">
-                        <button class="btn btn-primary btn-xl text-uppercase" >댓글 저장</button>
-                    </div>
-                </form>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-xl text-uppercase" >댓글 저장</button>
+                </div>
+
             </div>
-     </section>
+        </form>
 
 {% endblock %}
