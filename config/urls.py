@@ -44,6 +44,8 @@ urlpatterns = [
     path('user/signup', user.views.signup),
     path('user/login', user.views.login),
     path('user/logout', user.views.logout),
+    #좋아요 기능
+    path('like/<int:bid>',board.views.like)
 
 
 ]

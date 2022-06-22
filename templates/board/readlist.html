@@ -59,12 +59,25 @@
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading"> {{ data.title }}</div>
                                 <div class="portfolio-caption-subheading text-muted">{{data.create_date}} {{ data.writer }}님의 글</div>
+
+                                <div class="portfolio-caption-heading" onclick="sendRequest({{data.id}})"> ♥ </div>
                             </div>
                         </div>
 
                     </div>
                     {% endfor %}
-
+                    <script>
+                        function sendRequest(bid) {
+                            var httpRequest = new XMLHttpRequest();
+                            httpRequest.onreadystatechange = function() {
+                                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200 ) {
+                                    console.log(httpRequest.responseText);
+                                }
+                            };
+                            httpRequest.open("GET","/like/"+bid, true);
+                            httpRequest.send();
+                        }
+                    </script>
 
                 </div>
             </div>

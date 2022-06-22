@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -63,4 +64,9 @@ def updateget(request, bid):
                 post.save()
                 return redirect('/board/readdata/' + str(bid))
 
+@login_required(login_url = '/user/login')
+def like(request,bid):
+    post = Post.objects.get(id=bid)
+    post.like.add(request.user) #like에는 게시글 정보와 user 정보가 둘 다 필요하므로 user를 넣어준다
+    return JsonResponse({'message':'ok'})
 
