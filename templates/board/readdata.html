@@ -1,34 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+    <body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="/main"><img src="{% static 'imgfile/django.png' %}" alt="..." /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        {% if request.user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link" href="/main">User : {{request.user}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/user/logout">logout</a></li>
+                        {% else %}
+                                <li class="nav-item"><a class="nav-link" href="/user/login">login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/user/signup">signup</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="/board/readlist">board</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% if post %}
+    <section class="page-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="modal-body">
+
+                        <h2 class="text-uppercase">{{ post.title }}</h2>
+                        <ul class="list-inline">
+                            <li>
+                                <strong>글쓴이:</strong>
+                                {{post.writer}}
+                            </li>
+                            <li>
+                                <strong>작성시간:</strong>
+                                {{post.create_date}}
+                            </li>
+                        </ul>
+                        <img class="img-fluid d-block mx-auto" src="{%static 'imgfile/django.png' %}" alt="..." />
+                        <p>{{ post.contents }}</p>
+                        <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/readlist'" type="button">
+                            <i class="fas fa-xmark me-1"></i>
+                            글 닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">댓글</h2>
+                </div>
+                <form action = "/reply/createreply/{{post.id}}" method="post">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="text-center">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <textarea name ="contents" id="message" placeholder="댓글 입력 *"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" >댓글 저장</button>
+                    </div>
+                </form>
+            </div>
+     </section>
 
 
-{% if post %}
-
-    {{ post.id }}
-    {{ post.title}} <br/>
-    {% if post.writer == request.user %}
-        <a href = "/board/updateget/{{post.id}}">수정하기</a>
-        <a href = "/board/deleteget/{{post.id}}">삭제하기</a>
     {% endif %}
-    {% if post.writer != request.user %}
-        <a href = "/board/readdata">목록으로</a>
-    {% endif %}
-<br/>
-<form action = "/reply/createreply/{{ post.id }}" method ="post">
-{% csrf_token %}
- {{ replyform }}
-    <button>save</button>
-    </form>
+    </body>
 
-{% for reply in post.reply_set.all %}
-    {{ reply.contents }} <br/>
-{% endfor %}
 
-{% endif %}
-</body>
-</html>
+
+
+ {% endblock %}
