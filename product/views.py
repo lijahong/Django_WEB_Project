@@ -28,6 +28,6 @@ def readFruitGet(request):
     context = {
         'fruits': fruits
     }
-    return render(request, "product/createResult.html", context )
+    return render(request, "product/read.html", context )
 
 
