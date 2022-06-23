@@ -45,7 +45,9 @@ urlpatterns = [
     path('user/login', user.views.login),
     path('user/logout', user.views.logout),
     #좋아요 기능
-    path('like/<int:bid>',board.views.like)
+    path('like/<int:bid>',board.views.like),
+    #Kakao 로그인 redirect url
+    path('oauth/redirect2',user.views.getcode)
 
 
 ]
