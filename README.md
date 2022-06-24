@@ -8,3 +8,16 @@
 > - 2022.06.21 : Template 관리, BootStrap 추가, 게시글과 댓글 관계, 로그인 회원가입 수정
 > - 2022.06.22 : 좋아요 추가, 댓글 추가, 게시글 추가
 > - 2022.06.23 : Git 공부, Private 정보 제외시키기
+> - 2022.06.24 : 이메일 인증, 카카오 로그인, 카카오 회원가입, 파일 업로드
+
+
+### template
+> - account : allauth 인증 화면
+> - openid : allauth open id 화면
+> - socialaccount : allauth 소셜 로그인 화면
+> - tests : allauth tests 화면
+> - board : 게시판
+> - reply : 댓글
+> - base : 최상위 상속 페이지
+> - user : 자체 구현 로그인용 화면
+> - mainpage.html : 게시판 메인 화면
