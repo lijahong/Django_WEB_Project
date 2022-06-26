@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_board.html' %}
 {% load static %}
 {% block contents %}
     <body id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="/main"><img src="{% static 'imgfile/django.png' %}" alt="..." /></a>
+                <a class="navbar-brand" href="/"><img src="{% static 'imgfile/mainimage.png' %}" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -12,13 +12,12 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         {% if request.user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link" href="/main">User : {{request.user}}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/user/logout">logout</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/">User : {{request.user}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/logout/">logout</a></li>
                         {% else %}
-                                <li class="nav-item"><a class="nav-link" href="/user/login">login</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/user/signup">signup</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/login">login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/signup">signup</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="/board/readlist">board</a></li>
 
                     </ul>
                 </div>
@@ -45,6 +44,13 @@
                         <hr/>
                         <!--<img class="img-fluid d-block mx-auto" src="{%static 'imgfile/django.png' %}" alt="..." />-->
                         <p>{{ post.contents | safe }}</p>
+                        <div class="text-center">
+                            {% for image in post.postimage_set.all %}
+                                <img src="/media/{{image.image}}">
+                                <br/>
+                            {% endfor %}
+                            </div>
+                        <br/>
                         <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='/board/readlist'" type="button">
                             <i class="fas fa-xmark me-1"></i>
                             글 닫기
@@ -73,6 +79,11 @@
                 <hr/>
                 <div class="portfolio-caption-subheading text-muted">작성자 : {{reply.writer}}</div>
                 <div class="portfolio-caption-subheading text-muted">작성날짜 : {{reply.create_date}}</div>
+                {% if reply.writer == request.user %}
+                <a href = '/reply/deletereply/{{reply.id}}'>삭제하기</a>
+                &nbsp&nbsp
+                <a href = '/reply/updatereply/{{reply.id}}'>수정하기</a>
+                {% endif %}
             </div>
             <hr/>
 

@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, logout as auth_logout
 import requests
+from user.models import User
 
+""" #allauth 안쓰고 자체 구현 코드_현재 사용x
 def signup(request): #회원가입
     if request.method == "GET":
         signupForm = UserCreationForm() #Django에 저장된 form
@@ -32,14 +33,14 @@ def login(request): #로그인
 def logout(request):
     auth_logout(request)
     return redirect("/main")
-
+"""
 def mainpage(request):
     return render(request, 'mainpage.html')
 
 def mainindex(request):
     return render(request,'index.html')
-
-def getcode(request):
+"""
+def kakaologin(request): #kakao 로그인 용
     code = request.GET.get('code')
     data = {'grant_type': 'authorization_code',
             'client_id':'2c37b1f9400581ab999ecbc87ebc0ea2', #발급받은 앱 키
@@ -52,10 +53,27 @@ def getcode(request):
     access_token = token_json['access_token'] #access_token 받아오기
 
 
-    #token
+    #token 전송하여 정보 가져오기
     headers = {'Authorization': 'Bearer '+access_token,
                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'}
     res = requests.get('https://kapi.kakao.com//v2/user/me', headers=headers)
+    #가져온 정보에서 필요한 정보 따오기
     profile_res = res.json()
     print(profile_res)
-    return HttpResponse(code)
+    nickname = profile_res['kakao_account']['profile']['nickname'] #kakao에서 받아온 이름
+    kakaoid = profile_res['id'] #kakao id
+
+    #django의 user를 가져오기
+    user = User.objects.filter(email=kakaoid)
+    if user.first() is not None: #로그인
+        auth_login(request, user.first(), backend='django.contrib.auth.backends.ModelBackend')
+        return redirect("/main")
+    else: #회원가입
+        user = User()
+        user.email = kakaoid  # email란에 kakaoid를 넣어주겠다. email양식이 아니어도 가능하다
+        user.username = nickname
+        user.save()
+        print('save it--------------------------')
+        return redirect('/main')
+    return redirect("/user/login")
+"""

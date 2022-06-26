@@ -32,10 +32,38 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'board',
-    'product',
     'reply',
-    'user'
+    'user',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
 
+]
+#SITE 지정
+SITE_ID = 1
+#ALL AUTH 세팅
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' #none으로 하면 인증 없이 로그인 가능, optional로 하면 메일은 보내지만 인증 안해도 로그인 가능
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  #사용자가 url을 접속하면 get방식으로 온다. get 방식으로 email 인증에 접속했을때 허용 시켜주는 옵션
+
+#EMAIL 세팅
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  #이게 console로 되어있어서 안됬음 ㅋ, console로 되어있으면 console로 메일을 보내는 거였음
+EMAIL_HOST = 'smtp.gmail.com' #gmail시 smtp.gmail.com
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'lijahong111@gmail.com' #gmail시 gmail email
+EMAIL_HOST_PASSWORD = 'ylttvnaveaaehgwh'   #gmail시 구글 앱 비밀번호
+EMAIL_USE_TLS = True
+DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[이재홍의 게시판] --  '
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 #보안
 MIDDLEWARE = [
@@ -67,12 +95,17 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+#이미지 파일 저장될 곳
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
+
+#DB 연결 부분
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -86,8 +119,8 @@ DATABASES = {
         }
     }
 }
-
-
+#내가 사용할 user model
+AUTH_USER_MODEL = 'user.User'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 

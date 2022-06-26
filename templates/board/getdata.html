@@ -1,13 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'base_board.html' %}
 {% load static %}
 {% block contents %}
-   <body id="page-top">
+   <body id="page-top" style="background-color: #8C8C8C;">
 
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="/"><img src="{% static 'imgfile/mainimage.png' %}" alt="..." /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        {% if request.user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link" href="/">User : {{request.user}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/logout/">logout</a></li>
+                        {% else %}
+                                <li class="nav-item"><a class="nav-link" href="/accounts/login">login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/signup">signup</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+<br/><br/><br/><br/>
         <div class = "container">
-            <form method="post">
+            <form method="post"  enctype="multipart/form-data">
                 {% csrf_token %}
-                <input name ="title" type = "text">
+                제목 : <input name ="title" type = "text" >
                 <textarea name = "contents" id = "summernote"></textarea>
+                <br/>
+                <hr/>
+                <input multiple type="file" name="image" accept="image/*" id="id_image">
                 <div class="text-center">
                     <button class="btn btn-primary btn-xl text-uppercase" >작성 완료</button>
                 </div>

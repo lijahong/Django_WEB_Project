@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from board.models import Post
-
+from user.models import User
 
 class Reply(models.Model):
     contents = models.TextField()

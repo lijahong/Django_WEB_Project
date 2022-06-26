@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from user.models import User
 # Create your models here.
 
 class Post(models.Model):
@@ -13,6 +13,8 @@ class Post(models.Model):
     like = models.ManyToManyField(User, related_name="likes", blank=True)
 
 
-
+class PostImage(models.Model):
+    image = models.ImageField(upload_to= 'images/', null=True, blank =True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 

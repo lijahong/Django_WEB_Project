@@ -4,11 +4,11 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from board.form import PostForm
-from board.models import Post
+from board.models import Post, PostImage
 from reply.form import Replyform
 
 
-@login_required(login_url = '/user/login')
+@login_required(login_url = '/accounts/login/')
 def createBoardGet(request):
     if request.method == "GET":
         return render(request, "board/getdata.html")
@@ -18,26 +18,31 @@ def createBoardGet(request):
             post = postForm.save(commit=False)# 원래 save하면 db에 저장되는데, 이를 false로 하면 저장을 안하고,DB 객체를 반환한다. 중복데이터나 오류를 미리 알아낼 수 있게 해줌
             post.writer = request.user #작성자 설정, 이 설정을 안하면 writer를 form에서 exclude했기에 유효성 검사는 통과하지만 null값이 들어간다
             post.save()
+            for image in request.FILES.getlist('image',None):
+                postimage = PostImage()
+                postimage.image = image
+                postimage.post = post
+                postimage.save()
         return redirect('readdata/'+str(post.id))
 
 def readlist(request): #전체 리스트
     #ids = request.Get.get('id',None) #get방식으로 주소창에 원하는 id를 입력받음
     board_get_data = Post.objects.all().order_by('-id') #id오름차순으로 정렬
+    image = PostImage.objects.all()
     context = {
-       'datas': board_get_data
+       'datas': board_get_data,
     }
     return render(request, "board/readlist.html", context)
 
 def readdata(request, bid): #단일 게시물
     # prefetch_related
-    post = Post.objects.prefetch_related('reply_set').get(id=bid) #reply 요소가 reply_set으로 들어감
-    #post = Post.objects.get(id=bid)
+    post = Post.objects.prefetch_related('reply_set','postimage_set').get(id=bid) #reply 요소가 reply_set으로 들어감
     replyform = Replyform()
     context = {'post': post, 'replyform':replyform}
 
     return render(request, 'reply/createreply.html', context)
 
-@login_required(login_url = '/user/login')
+@login_required(login_url = '/accounts/login/')
 def deleteget(request, bid):
     post = Post.objects.get(id=bid)
     if request.user != post.writer:
@@ -46,7 +51,7 @@ def deleteget(request, bid):
         post.delete()
         return redirect('/board/readlist')
 
-@login_required(login_url = '/user/login')
+@login_required(login_url = '/accounts/login/')
 def updateget(request, bid):
     post = Post.objects.get(id=bid)
     if request.user != post.writer:
@@ -60,9 +65,14 @@ def updateget(request, bid):
             if postForm.is_valid():
                 post = postForm.save(commit=False)
                 post.save()
+                for image in request.FILES.getlist('image', None):
+                    postimage = PostImage()
+                    postimage.image = image
+                    postimage.post = post
+                    postimage.save()
                 return redirect('/board/readdata/' + str(bid))
 
-@login_required(login_url = '/user/login')
+@login_required(login_url = '/accounts/login/')
 def like(request,bid):
     post = Post.objects.get(id=bid)
     user = request.user
