@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Email 인증을 해주세요!" %}</h1>
+<hr/>
+    <p>{% blocktrans %} 방금 사용자님이 등록해주신 주소로 인증 메일을 보냈습니다! 인증을 해주세요!{% endblocktrans %}</p>
+
+{% endblock %}

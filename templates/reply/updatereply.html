@@ -1,0 +1,19 @@
+{% extends 'board/readdata.html' %}
+{% load static %}
+{% block contents_reply %}
+
+        <form action="/reply/updatereply/{{ reply.id }}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-10 form-group">
+                    <input name="contents" value = "{{ reply.contents }}"
+                           class="form-control" type="text">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-xl text-uppercase" >댓글 수정</button>
+                </div>
+
+            </div>
+        </form>
+
+{% endblock %}

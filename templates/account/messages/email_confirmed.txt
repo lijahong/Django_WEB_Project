@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}email이 확인되셨습니다 -  {{email}}.{% endblocktrans %}

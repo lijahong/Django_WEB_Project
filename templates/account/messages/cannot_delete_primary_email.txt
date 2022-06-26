@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}주 email을 삭제하실수 없습니다 ({{email}}).{% endblocktrans %}

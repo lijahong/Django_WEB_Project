@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}email 주소가 설정되었습니다{% endblocktrans %}
