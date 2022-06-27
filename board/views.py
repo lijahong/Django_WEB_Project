@@ -27,7 +27,7 @@ def createBoardGet(request):
 
 def readlist(request): #전체 리스트
     #ids = request.Get.get('id',None) #get방식으로 주소창에 원하는 id를 입력받음
-    board_get_data = Post.objects.all().order_by('-id') #id오름차순으로 정렬
+    board_get_data = Post.objects.prefetch_related('postimage_set').all().order_by('-id') #id오름차순으로 정렬
     image = PostImage.objects.all()
     context = {
        'datas': board_get_data,

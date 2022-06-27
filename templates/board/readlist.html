@@ -55,7 +55,14 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
+                                {% if data.postimage_set %}
+                                {% for image in data.postimage_set.all|slice:":1" %}
+                                <img class="img-fluid" src="/media/{{image.image}}" alt="..." />
+
+                                {% endfor %}
+                                {% else %}
                                 <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." />
+                                {% endif %}
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading"> {{ data.title }}</div>
