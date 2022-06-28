@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>{% block head_title %}{% endblock %}</title>
+        <title>HONG BOARD - {% block head_title %}{% endblock %}</title>
         {% block extra_head %}
         {% endblock %}
         <!-- Favicon-->
@@ -24,7 +24,8 @@
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     </head>
 
-      <body style="background-color: #8C8C8C;">
+
+    <body style="background-position: center; background:url('{% static 'imgfile/baseimage.png' %}') no-repeat; background-size: cover">
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="/"><img src="{% static 'imgfile/mm2.png' %}" alt="..." /></a>
@@ -36,8 +37,9 @@
 
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         {% if user.is_authenticated %}
-                         <li class="nav-item"><a class="nav-link" href="{% url 'account_email' %}">Change E-mail</a></li>
-                         <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a></li>
+                         <!--<li class="nav-item"><a class="nav-link" href="{% url 'account_email' %}">Change E-mail</a></li>
+                         <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a></li>-->
+                        <li class="nav-item"><a class="nav-link" href="/">메인으로</a></li>
                         {% else %}
                          <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a></li>
                          <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">login</a></li>

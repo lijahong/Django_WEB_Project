@@ -1,0 +1,81 @@
+{% extends 'base_board.html' %}
+{% load static %}
+{% block contents %}
+    <body id="page-top"  style="background-position: center; background:url('{% static 'imgfile/baseimage.png' %}') no-repeat; background-size: cover">
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="/"><img src="{% static 'imgfile/mm2.png' %}" alt="..." /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                       {% if request.user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link" href="/">main</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/logout/">logout</a></li>
+                        {% else %}
+                                <li class="nav-item"><a class="nav-link" href="/accounts/login">login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/accounts/signup">signup</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br/><br/><br/><br/><br/>
+           <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">MY PAGE</h2>
+                    <h3 class="section-subheading text-muted">자신의 정보를 조회하고 수정하세요!</h3>
+                </div>
+               <hr/>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <div style="width: 150px; height:400px; overflow: hidden">
+                                <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." /></div>
+                        </span>
+                        <br/><br/>
+                        <h4 class="text-muted">사용자 이름 : {{ request.user.username }}</h4>
+                        <p class="text-muted">가입 날짜  : {{ request.user.date_joined }}</p>
+                        <p class="text-muted">가입 이메일 : {{ request.user.email }}</p>
+                        <p class="text-muted">로그인 시간 : {{ request.user.last_login }}</p>
+                    </div>
+                     <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <div class="text-center">
+                            <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='{% url 'account_email' %}' " >Email 변경</button>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-xl text-uppercase" onclick="location.href='{% url 'account_change_password' %}' ">패스워드 수정</button>
+                            </div>
+                             <div class="text-center">
+                                <button class="btn btn-primary btn-xl text-uppercase" >탈퇴</button>
+                            </div>
+
+                        </span>
+
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-xl text-uppercase" >작성 댓글</button>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-xl text-uppercase" >작성 글</button>
+                            </div>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+ {% endblock %}

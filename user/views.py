@@ -4,6 +4,16 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 import requests
 from user.models import User
 
+
+def mainpage(request):
+    return render(request, 'mainpage.html')
+
+def mainindex(request):
+    return render(request,'index.html')
+
+
+def mypage(request):
+    return render(request,'user/mypage.html')
 """ #allauth 안쓰고 자체 구현 코드_현재 사용x
 def signup(request): #회원가입
     if request.method == "GET":
@@ -34,11 +44,6 @@ def logout(request):
     auth_logout(request)
     return redirect("/main")
 """
-def mainpage(request):
-    return render(request, 'mainpage.html')
-
-def mainindex(request):
-    return render(request,'index.html')
 """
 def kakaologin(request): #kakao 로그인 용
     code = request.GET.get('code')

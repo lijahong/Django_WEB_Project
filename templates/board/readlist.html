@@ -14,7 +14,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                        {% if request.user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link" href="/">User : {{request.user}}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/user/mypage">User : {{request.user}}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/accounts/logout/">logout</a></li>
                         {% else %}
                                 <li class="nav-item"><a class="nav-link" href="/accounts/login">login</a></li>
@@ -56,13 +56,13 @@
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 {% if data.postimage_set %}
-                                {% for image in data.postimage_set.all|slice:":1" %}
-                                <div style="width: 280px; height: 280px; overflow: hidden">
-                                    <img class="img-fluid" src="/media/{{image.image}}" alt="..." /></div>
-                                {% endfor %}
+                                    {% for image in data.postimage_set.all|slice:":1" %}
+                                            <div style="width: 280px; height: 280px; overflow: hidden">
+                                                <img class="img-fluid" src="/media/{{image.image}}" alt="..." /></div>
+                                    {% endfor %}
                                 {% else %}
-                                <div style="width: 280px; height: 280px; overflow: hidden">
-                                <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." /></div>
+                                    <div style="width: 280px; height: 280px; overflow: hidden">
+                                        <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." /></div>
                                 {% endif %}
                             </a>
                             <div class="portfolio-caption">

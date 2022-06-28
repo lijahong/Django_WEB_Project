@@ -18,6 +18,7 @@ def createBoardGet(request):
             post = postForm.save(commit=False)# 원래 save하면 db에 저장되는데, 이를 false로 하면 저장을 안하고,DB 객체를 반환한다. 중복데이터나 오류를 미리 알아낼 수 있게 해줌
             post.writer = request.user #작성자 설정, 이 설정을 안하면 writer를 form에서 exclude했기에 유효성 검사는 통과하지만 null값이 들어간다
             post.save()
+
             for image in request.FILES.getlist('image',None):
                 postimage = PostImage()
                 postimage.image = image
@@ -29,6 +30,14 @@ def readlist(request): #전체 리스트
     #ids = request.Get.get('id',None) #get방식으로 주소창에 원하는 id를 입력받음
     board_get_data = Post.objects.prefetch_related('postimage_set').all().order_by('-id') #id오름차순으로 정렬
     image = PostImage.objects.all()
+    context = {
+       'datas': board_get_data,
+    }
+    return render(request, "board/readlist.html", context)
+
+@login_required(login_url = '/accounts/login/')
+def readmylist(request): #사용자가 작성한 리스트
+    board_get_data = Post.objects.prefetch_related('postimage_set').filter(writer_id=request.user.id).order_by('-id') #id오름차순으로 정렬
     context = {
        'datas': board_get_data,
     }
