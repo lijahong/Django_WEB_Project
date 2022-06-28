@@ -10,6 +10,7 @@
 > - 2022.06.23 : Git 공부, Private 정보 제외시키기
 > - 2022.06.24 : 이메일 인증, 카카오 로그인, 카카오 회원가입, 파일 업로드
 > - 2022.06.26 : Template 수정) [account/ base, login, logout, signup, password_reset, password_reset_done],[socialaccount/snippets/provider_list],[socialaccount/login, signup]
+> - 2022.06.27 : AWS에 배포하기 ( EC2, RDS, S3 사용 )
 
 ### template
 > - account : allauth 인증 화면
