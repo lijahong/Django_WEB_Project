@@ -57,11 +57,12 @@
                                 </div>
                                 {% if data.postimage_set %}
                                 {% for image in data.postimage_set.all|slice:":1" %}
-                                <img class="img-fluid" src="/media/{{image.image}}" alt="..." />
-
+                                <div style="width: 280px; height: 280px; overflow: hidden">
+                                    <img class="img-fluid" src="/media/{{image.image}}" alt="..." /></div>
                                 {% endfor %}
                                 {% else %}
-                                <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." />
+                                <div style="width: 280px; height: 280px; overflow: hidden">
+                                <img class="img-fluid" src="{% static 'imgfile/mm2.png' %}" alt="..." /></div>
                                 {% endif %}
                             </a>
                             <div class="portfolio-caption">

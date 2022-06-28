@@ -47,7 +47,9 @@
                         <p>{{ post.contents | safe }}</p>
                         <div class="text-center">
                             {% for image in post.postimage_set.all %}
+                            <div style="width: 750px; height: 450px; overflow:auto">
                                 <img src="/media/{{image.image}}">
+                                </div>
                                 <br/>
                             {% endfor %}
                             </div>
