@@ -3,7 +3,7 @@
 - 참조 ) https://velog.io/@lijahong/series/0%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-Django-%EA%B3%B5%EB%B6%80
 - 게시판 url : http://www.hongboard.kro.kr/
 
-#### 클라우드 스쿨 Django 공부
+####  Django 공부 - Web 게시판 제작
 #### 공부 기록
 > - 2022.06.15 : network https://velog.io/@lijahong/0%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B3%B5%EB%B6%80-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%EB%9E%80
 > - 2022.06.16 : network, 프로젝트 생성, 동작 방식 , Data 송수신
@@ -15,6 +15,8 @@
 > - 2022.06.24 : 이메일 인증, 카카오 로그인, 카카오 회원가입, 파일 업로드
 > - 2022.06.26 : Template 수정) [account/ base, login, logout, signup, password_reset, password_reset_done],[socialaccount/snippets/provider_list],[socialaccount/login, signup]
 > - 2022.06.27 : AWS에 배포하기 ( EC2, RDS, S3 사용 )
+> - 2022.06.28 : TDD 방식, Selenium 사용해보기
+> - 2022.06.29 : DRF 사용해보기
 
 ### template
 > - account : allauth 인증 화면
