@@ -1,4 +1,4 @@
-# Django_study
+# Django_Web_Project
 - Web 게시판 제작
 - 참조 ) https://velog.io/@lijahong/series/0%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-Django-%EA%B3%B5%EB%B6%80
 - 게시판 url : http://www.hongboard.kro.kr/
